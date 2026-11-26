@@ -17,7 +17,10 @@ describe('GET /', () => {
     expect(html).toMatch(/<html\b[^>]*\blang="en"/i)
     expect(html).toMatch(/<meta\b[^>]*\bcharset="UTF-8"/i)
     expect(html).toContain('<title>AgentClinic</title>')
-    expect(html).toMatch(/<meta\b[^>]*\bname="viewport"/i)
+    const viewport = html.match(/<meta\b[^>]*\bname="viewport"[^>]*>/i)?.[0]
+    expect(viewport).toContain('width=device-width')
+    expect(viewport).toContain('initial-scale=1')
+    expect(viewport).not.toMatch(/user-scalable\s*=\s*no|(?:maximum|minimum)-scale\s*=/i)
     expect(html).toMatch(/<\/body>\s*<\/html>\s*$/i)
   })
 

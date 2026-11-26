@@ -1,6 +1,6 @@
 # Plan: Hello, AgentClinic
 
-Complete these numbered task groups in order. The original phase 1 scope is extended by the requested shared layout, stylesheet, and Vitest validation on 2026-11-26, as recorded in [requirements.md](requirements.md).
+Complete these numbered task groups in order. The original phase 1 scope is extended by the requested shared layout, stylesheet, Vitest validation, and responsive design on 2026-11-26, as recorded in [requirements.md](requirements.md).
 
 ## 1. Prepare the server and development loop
 
@@ -41,3 +41,11 @@ Complete these numbered task groups in order. The original phase 1 scope is exte
 - [x] Test the public HTTP interface through `app.request()`: HTML status/content type, document metadata, header/main/footer and welcome heading, script-free content, and successful retrieval of the linked stylesheet as CSS.
 - [x] Document test commands and the remaining browser checks; update requirements and validation evidence to include the requested test harness.
 - [x] Verify a clean install from the lockfile, all automated tests, and the TypeScript build.
+
+## 6. Require responsive design throughout the product
+
+- [x] Make responsive design a completion requirement in mission, tech stack, roadmap, and every existing feature specification.
+- [x] Specify viewport coverage, text enlargement, touch targets, long-text reflow, and browser acceptance criteria for the welcome layout.
+- [x] Update shared CSS for safe grid shrinking, wrapping, fluid spacing, and a 44-pixel header link target.
+- [x] Strengthen the route test to verify usable viewport metadata and unrestricted zoom.
+- [x] Run Vitest, the strict TypeScript build, and browser checks at phone, tablet, desktop, landscape, and enlarged-text sizes; record actual results in `validation.md`.

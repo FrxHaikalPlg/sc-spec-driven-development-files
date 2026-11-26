@@ -43,6 +43,16 @@ Alternatives considered: Next.js (popular but heavier than we need), Express + E
 - Tests live next to code as `*.test.ts`.
 - Scripts: `npm run dev`, `npm run build`, `npm start`, `npm test`.
 
+## Responsive design contract
+
+- Build every UI feature with a mobile-first, fluid layout using the shared layout and plain CSS. Use content-driven media queries only when the content needs a different arrangement.
+- Support viewports from 320 CSS pixels upward, including phones, tablets, desktops, and landscape orientation. Keep content readable and controls reachable without page-level horizontal scrolling or clipping. Place inherently wide tables or similar content in a bounded scroll region when needed.
+- Include `width=device-width, initial-scale=1` viewport metadata in the shared document head and allow user zoom. Support text enlargement to 200% without losing content or functionality.
+- Let grid/flex items shrink and long text wrap. Constrain future media to their container. Keep comfortable fluid spacing and readable line lengths at large widths.
+- Provide touch targets at least 44 by 44 CSS pixels for standalone controls and retain visible keyboard focus.
+- Validate each UI feature in a real browser at widths 320, 375, 768, 1280, and 1920 CSS pixels, plus landscape and 200% text enlargement. Check intermediate widths when content changes arrangement. Verify no overlaps, clipped content, or page overflow, and preserve operation without client JavaScript.
+- Vitest verifies response structure and zoom-friendly viewport metadata; browser checks verify actual layout. Record the viewport sizes, browser, and results in each feature's validation document.
+
 ## Browser support
 
 Current versions of evergreen browsers (Chrome, Edge, Firefox, Safari). No IE, no polyfills. Pages should work without client-side JavaScript; small progressive enhancements are allowed.

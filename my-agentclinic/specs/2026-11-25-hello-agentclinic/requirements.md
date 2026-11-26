@@ -48,6 +48,16 @@ Additional scope update requested by the user on 2026-11-26:
 - Export the configured Hono application from `src/app.ts` and keep the server listener in `src/index.ts` so importing the application in tests has no server startup side effect.
 - Retain browser checks for actual visual styling, responsive behavior, refresh, and JavaScript-disabled rendering.
 
+## Responsive acceptance criteria
+
+The [product responsive design contract](../tech-stack.md#responsive-design-contract) applies to this feature and all future UI features.
+
+- At 320, 375, 768, 1280, and 1920 CSS-pixel widths, the header, main, and footer remain in document order, with exactly one readable welcome heading and no horizontal page scrolling, clipping, or overlap.
+- Keep the header home link usable by touch (at least 44 by 44 CSS pixels) and keyboard, with a visible focus indicator.
+- Preserve the viewport metadata, allow user zoom, and support text enlargement to 200%. Long content must wrap inside the layout rather than force the page wider.
+- Check landscape orientation and resizing between representative widths. The footer stays below content when text wraps and reaches the viewport bottom when content is short.
+- Preserve the title, stylesheet loading, and welcome content with JavaScript disabled. Record actual browser checks in `validation.md`; Vitest markup checks alone do not prove responsiveness.
+
 ## Out of scope
 
 Additional navigation and hero copy belong to later phases. Database setup, agents, ailments, therapies, appointments, dashboards, and production-start packaging are also excluded.

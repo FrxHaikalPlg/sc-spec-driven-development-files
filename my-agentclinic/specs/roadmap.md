@@ -4,6 +4,8 @@ High-level implementation order. Each phase is a **tiny, demoable slice**: build
 
 Each phase gets its own short spec before it is built.
 
+Responsive design applies to every UI phase from the first page onward, following the [product mission](mission.md) and [responsive design contract](tech-stack.md#responsive-design-contract). Each feature must include mobile, tablet, desktop, landscape, and text-enlargement acceptance checks. Phase 17 is a final regression and accessibility audit; it does not defer responsive implementation or validation for earlier phases.
+
 ## Foundation
 
 1. **Hello, AgentClinic** — Install Hono, serve a single "Welcome to AgentClinic" page at `/` with `npm run dev`.
@@ -40,6 +42,6 @@ Each phase gets its own short spec before it is built.
 
 ## Polish
 
-17. **Responsive & accessible pass** — Mobile layout, semantic HTML, focus states, color contrast.
+17. **Responsive & accessibility audit** — Recheck responsive layouts, semantic HTML, focus states, and color contrast across all shipped features.
 18. **Empty & error states** — Friendly 404 page and empty-list messages throughout.
 19. **Production build** — `npm run build` + `npm start`, documented in the README.

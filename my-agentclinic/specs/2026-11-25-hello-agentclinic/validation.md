@@ -30,6 +30,9 @@ These checks apply to the phase 1 implementation and its requested layout, style
 - With `npm run dev` running, open `http://localhost:3000/` in a current evergreen browser.
 - Pass: the page renders a readable `Welcome to AgentClinic` heading inside main and has a document title, a header home link, and a footer identifying the clinic.
 - Confirm the linked stylesheet loads and applies typography, colors, and a header/main/footer layout. Check desktop and mobile widths for readable content without horizontal overflow.
+- Apply the [responsive design contract](../tech-stack.md#responsive-design-contract) at widths 320, 375, 768, 1280, and 1920 CSS pixels, plus landscape (812 x 375). Resize between these widths; content must remain readable without clipping, overlap, or horizontal page scrolling.
+- Enlarge text to 200% at the narrowest width. Confirm content reflows, the footer remains below main, and the home link remains usable. Confirm viewport metadata allows zoom.
+- Check the home link's target measures at least 44 x 44 CSS pixels, can be reached by keyboard, and has visible keyboard focus. Check long text wraps within its region.
 - Refresh the page and confirm the same result. Confirm the page renders with client-side JavaScript disabled.
 - Stop the server with Ctrl+C when finished.
 
@@ -50,7 +53,7 @@ These checks apply to the phase 1 implementation and its requested layout, style
 
 - All checks above pass, with the build result, HTTP status/content-type/body findings, and browser used recorded in the implementation review or this document.
 - README instructions match the working development command and local URL.
-- The diff stays within phase 1 plus the requested shared layout, stylesheet, and Vitest validation; no database work or production packaging is introduced.
+- The diff stays within phase 1 plus the requested shared layout, stylesheet, Vitest validation, and product-wide responsive design; no database work or production packaging is introduced.
 - No generated build output or `node_modules` is included in the change.
 - Any unavailable check remains explicitly pending; implementation is not merge-ready until all required evidence is available.
 
@@ -96,3 +99,15 @@ Verified on 2026-11-26 with Vitest 5.1.2, Node.js v24.18.0, and npm 11.16.0:
 - **Documentation: PASS.** README includes single-run and watch commands, and the plan and requirements now include the requested test harness. `git diff --check` passed.
 
 These tests validate HTTP responses and server-rendered markup. Visual styling, mobile layout, refresh, and JavaScript-disabled browser evidence remain recorded in the preceding section; a browser was not rerun for this test-harness change.
+
+## Product-wide responsive design evidence
+
+Verified on 2026-11-26 after the shared CSS and viewport assertion updates:
+
+- **Automated checks: PASS.** `npm.cmd test` passed strict application/test type checking and all five Vitest tests. The document test now verifies device-width sizing, initial scale, and no viewport restrictions on user zoom. `npm.cmd run build` and `git diff --check` passed.
+- **Browser matrix: PASS.** Headless Microsoft Edge 158.0.4370.33 checked 320 x 812, 375 x 812, 768 x 1024, 1280 x 800, 1920 x 1080, landscape 812 x 375, and intermediate 560 x 800, resizing the same page with JavaScript disabled. No page-level horizontal overflow or region overlap was detected; the heading remained visible, regions stayed in order, and the footer reached the viewport bottom for short content.
+- **Enlarged text: PASS.** At 320 x 812, setting the root font size to 200% preserved all text and region order without horizontal overflow. This checks text enlargement, not browser zoom emulation. A screenshot was visually inspected.
+- **Controls and long content: PASS.** The home link measured approximately 108 x 44 CSS pixels at normal text size and 217 x 64 at enlarged size. Keyboard Tab focused it with a visible solid outline. Injecting a temporary 800-character unbroken word into main at enlarged text size preserved wrapping without horizontal overflow and kept the footer below main.
+- **Regression checks: PASS.** Initial load, refresh, and refresh with JavaScript disabled preserved the title, heading, stylesheet, and layout. The temporary browser and development server sessions were stopped afterward.
+
+The mission, tech stack, roadmap, and all three documents in the existing feature spec now require responsive implementation and validation for each UI feature. Earlier evidence sections describe their respective implementation stages.

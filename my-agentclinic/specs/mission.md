@@ -31,6 +31,8 @@ Drawn from stakeholder input:
 
 ## Principles
 
+Responsive design is a product-wide requirement for every web UI feature. Pages must work on phones, tablets, and desktops from 320 CSS pixels upward, preserving content and functionality as the viewport changes. Text must remain readable at 200% enlargement, controls must remain usable with touch and keyboard, and ordinary page content must reflow without horizontal scrolling. Any inherently wide content must use a clearly bounded scroll region. Every UI feature spec must include responsive acceptance criteria and browser validation; this work is part of each feature's completion.
+
 1. **Small, demoable steps.** Every change should be visible and working before the next begins.
 2. **Specs first.** Features start as a short spec in `specs/`, then get built.
 3. **Simple over clever.** Server-rendered pages, minimal dependencies, obvious code.

@@ -21,12 +21,15 @@ body {
   min-height: 100vh;
   min-height: 100svh;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto 1fr auto;
 }
 
 .site-header,
 .site-main,
 .site-footer {
+  min-width: 0;
+  overflow-wrap: anywhere;
   padding: 1.5rem max(1rem, calc((100% - 64rem) / 2));
 }
 
@@ -36,6 +39,9 @@ body {
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: var(--color-brand);
   font-size: 1.25rem;
   font-weight: 700;
@@ -52,7 +58,7 @@ a:focus-visible {
 }
 
 .site-main {
-  padding-block: 3rem;
+  padding-block: clamp(2rem, 5vw, 3rem);
 }
 
 h1 {
