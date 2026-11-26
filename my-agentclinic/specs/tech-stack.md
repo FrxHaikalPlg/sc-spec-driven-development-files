@@ -36,6 +36,7 @@ Alternatives considered: Next.js (popular but heavier than we need), Express + E
 ## Conventions
 
 - `src/` holds all application code; `src/index.ts` starts the server.
+- `src/app.ts` exports the configured Hono application without starting the server, so route tests can use `app.request()`.
 - Routes in `src/routes/`, JSX views/components in `src/views/`, data access in `src/db/`.
 - Static assets (CSS, images) served from `public/`.
 - `strict` TypeScript; no `any` without a comment explaining why.

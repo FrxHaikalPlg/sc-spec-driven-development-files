@@ -1,6 +1,6 @@
 # Validation: Hello, AgentClinic
 
-These checks apply to the phase 1 implementation and its requested shared layout and stylesheet extension. Actual results are recorded below.
+These checks apply to the phase 1 implementation and its requested layout, stylesheet, and Vitest validation extensions. Actual results are recorded below.
 
 ## 1. Installation and TypeScript build
 
@@ -33,11 +33,24 @@ These checks apply to the phase 1 implementation and its requested shared layout
 - Refresh the page and confirm the same result. Confirm the page renders with client-side JavaScript disabled.
 - Stop the server with Ctrl+C when finished.
 
-## 4. Merge readiness
+## 4. Automated validation
+
+- Run `npm test`. This first checks application and test types with strict TypeScript, then executes Vitest once in the Node environment.
+- Pass: all five tests in `src/app.test.ts` pass through the real application's `app.request()` interface, without a running server or mocked routes:
+  - HTTP 200 and HTML content type for `/`.
+  - A complete English HTML document with UTF-8 encoding, title, and viewport metadata.
+  - One header, main, and footer in order, a header home link, and exactly one welcome heading inside main.
+  - Server-rendered welcome content without client-side scripts.
+  - A stylesheet link whose target returns HTTP 200, a CSS content type, and stylesheet rules.
+- Use `npm run test:watch` to rerun Vitest while editing. This watch command does not perform the separate TypeScript check.
+- Vitest must collect tests only from `src/`, ignoring compiled files in `dist/`. The normal TypeScript build must exclude test files.
+- These Node tests verify response content. Use the browser checks above for actual visual styling and responsive rendering.
+
+## 5. Merge readiness
 
 - All checks above pass, with the build result, HTTP status/content-type/body findings, and browser used recorded in the implementation review or this document.
 - README instructions match the working development command and local URL.
-- The diff stays within phase 1 plus the requested shared layout and stylesheet; no test harness, database work, or production packaging is introduced.
+- The diff stays within phase 1 plus the requested shared layout, stylesheet, and Vitest validation; no database work or production packaging is introduced.
 - No generated build output or `node_modules` is included in the change.
 - Any unavailable check remains explicitly pending; implementation is not merge-ready until all required evidence is available.
 
@@ -70,3 +83,16 @@ Verified on 2026-11-26 using the same Node.js and npm versions:
 - **Environment: PASS.** An existing development server on port 3000 was already serving the updated source and was reused for HTTP and browser verification. The redundant launch was stopped after reporting the occupied port; the existing server was left running. The temporary Edge session was closed.
 
 All required layout and stylesheet checks passed.
+
+## Vitest validation evidence
+
+Verified on 2026-11-26 with Vitest 5.1.2, Node.js v24.18.0, and npm 11.16.0:
+
+- **Clean installation: PASS.** `npm.cmd ci` installed 41 packages from the updated lockfile and reported zero vulnerabilities. The first attempt encountered a temporary Windows file lock on `esbuild.exe`; a retry succeeded without changing dependency inputs.
+- **Strict type checking: PASS.** `npm.cmd test` first completed `tsc --project tsconfig.test.json`, checking application and test code without emitting files.
+- **Automated validation: PASS.** Vitest reported one test file and five tests passed in `src/app.test.ts`. Tests use the exported application's `app.request()` with the real home route, views, and static-file middleware; no server or internal mocks are used.
+- **Collection and build isolation: PASS.** `vitest.config.mts` limits collection to `src/**/*.test.{ts,tsx}` in the Node environment. Compiled tests from an earlier build were initially detected by default collection; the explicit source-only include resolves this. `tsconfig.json` now excludes test files from subsequent build output, while `tsconfig.test.json` includes them for strict checking.
+- **Build: PASS.** `npm.cmd run build` completed successfully after the clean install. `src/index.ts` retains the Node listener on port 3000 and imports its configured application from `src/app.ts`.
+- **Documentation: PASS.** README includes single-run and watch commands, and the plan and requirements now include the requested test harness. `git diff --check` passed.
+
+These tests validate HTTP responses and server-rendered markup. Visual styling, mobile layout, refresh, and JavaScript-disabled browser evidence remain recorded in the preceding section; a browser was not rerun for this test-harness change.

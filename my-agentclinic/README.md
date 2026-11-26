@@ -25,6 +25,26 @@ npm run build
 
 Compiled files are written to `dist/`.
 
+## Validate
+
+Run strict TypeScript checking for application and test code, followed by Vitest:
+
+```sh
+npm test
+```
+
+For automatic test reruns while editing:
+
+```sh
+npm run test:watch
+```
+
+The tests exercise the Hono application through `app.request()` without starting
+a server. They validate the home response, document metadata, header/main/footer,
+welcome heading, absence of client scripts, and the linked CSS response. Test
+files are excluded from build output. Browser checks for responsive rendering
+remain documented in [validation.md](specs/2026-11-25-hello-agentclinic/validation.md).
+
 If PowerShell blocks `npm.ps1`, use `npm.cmd` in place of `npm` in these commands.
 
 ## Input from stakeholders

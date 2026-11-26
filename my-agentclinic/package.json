@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "tsc --project tsconfig.test.json && vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.11",
@@ -13,7 +15,8 @@
   },
   "devDependencies": {
     "tsx": "^4.23.15",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "vitest": "^5.1.2"
   },
   "private": true
 }

@@ -1,6 +1,6 @@
 # Plan: Hello, AgentClinic
 
-Complete these numbered task groups in order. The original phase 1 scope is extended by the requested shared layout and stylesheet on 2026-11-26, as recorded in [requirements.md](requirements.md).
+Complete these numbered task groups in order. The original phase 1 scope is extended by the requested shared layout, stylesheet, and Vitest validation on 2026-11-26, as recorded in [requirements.md](requirements.md).
 
 ## 1. Prepare the server and development loop
 
@@ -31,3 +31,13 @@ Complete these numbered task groups in order. The original phase 1 scope is exte
 - [x] Import Hono's Node static middleware, serve the stylesheet at `/styles.css`, and link it in the layout's document head.
 - [x] Run the strict TypeScript build and verify HTML structure plus a successful CSS response with a CSS content type.
 - [x] Verify that the stylesheet loads and the layout renders in a browser at desktop and mobile widths, including refresh and JavaScript disabled; record the results in `validation.md`.
+
+## 5. Automate validation with Vitest
+
+- [x] Install Vitest as a development dependency using npm and update the lockfile.
+- [x] Extract the configured Hono application to `src/app.ts`; keep Node server startup in `src/index.ts` so tests do not open a port.
+- [x] Add `npm test` for strict application/test type checking and a single Vitest run, plus `npm run test:watch` for reruns while editing.
+- [x] Configure Vitest to collect only colocated tests in `src/` using the Node environment. Exclude tests from production build output while retaining their strict type check.
+- [x] Test the public HTTP interface through `app.request()`: HTML status/content type, document metadata, header/main/footer and welcome heading, script-free content, and successful retrieval of the linked stylesheet as CSS.
+- [x] Document test commands and the remaining browser checks; update requirements and validation evidence to include the requested test harness.
+- [x] Verify a clean install from the lockfile, all automated tests, and the TypeScript build.
