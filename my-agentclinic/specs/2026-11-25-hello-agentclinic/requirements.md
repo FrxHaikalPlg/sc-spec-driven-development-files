@@ -14,6 +14,9 @@ The starting project has a TypeScript configuration and `npm run build`, but `sr
 - Return a basic HTML document with a doctype, English document language, character encoding, document title, and a body containing one heading: `Welcome to AgentClinic`.
 - Use Hono JSX for server-rendered HTML, following the stack conventions.
 - Keep `npm run build` working with strict TypeScript.
+- Render the welcome page through a shared `MainLayout` composed of separate `Header`, `Main`, and `Footer` subcomponents. Pass page content as children to the main region.
+- Serve one stylesheet from `public/styles.css` at `/styles.css` using imported Hono Node static middleware, and link it from the shared layout's document head.
+- Use simple responsive typography, colors, spacing, and a full-height header/main/footer structure, without client-side JavaScript.
 
 ## Decisions
 
@@ -30,9 +33,15 @@ Implementation defaults:
 - Use a small JSX-compatible TypeScript configuration adjustment as needed; retain strict checking and the existing build command.
 - Use plain browser rendering for this slice and keep the page usable without client-side JavaScript.
 
+Scope update requested by the user on 2026-11-26:
+
+- Extend the original phase 1 implementation with the shared layout, its three subcomponents, and a linked stylesheet.
+- The original heading-only visible content restriction is superseded by the header and footer. Keep exactly one `Welcome to AgentClinic` page heading inside the main region, with a home link in the header and simple clinic identification in the footer.
+- Keep all other roadmap features outside this change.
+
 ## Out of scope
 
-Vitest and automated route tests belong to phase 2. Shared layout, navigation, footer, stylesheet, brand styling, and hero copy belong to later phases. Database setup, agents, ailments, therapies, appointments, dashboards, and production-start packaging are also excluded.
+Vitest and automated route tests belong to phase 2. Additional navigation and hero copy belong to later phases. Database setup, agents, ailments, therapies, appointments, dashboards, and production-start packaging are also excluded.
 
 ## Deliverable boundary
 
